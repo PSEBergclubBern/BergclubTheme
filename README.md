@@ -14,7 +14,7 @@ Now a virtual machine is created and provisioned. If for some reason the configu
 
 If you are finished with your work, you can commit your changes (bear in mind our git workflow) and halt the virtual machine with `vagrant halt`.
 
-## General information about plugin
+## General information about theme
 The theme resides in wordpress/wp-content/themes/bergclub-theme
 
 ## Wordpress installation
