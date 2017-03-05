@@ -1,8 +1,6 @@
-# BergclubPlugin
+# BergclubTheme
 
-[![Build Status](https://travis-ci.org/PSEBergclubBern/BergclubPlugin.svg?branch=master)](https://travis-ci.org/PSEBergclubBern/BergclubPlugin)
-
-This plugin is part of a project in PSE with the goal, that the current website will be renewed.
+This theme is part of a project in PSE with the goal, that the current website will be renewed.
 
 ## HowTo Code
 
@@ -17,12 +15,9 @@ Now a virtual machine is created and provisioned. If for some reason the configu
 If you are finished with your work, you can commit your changes (bear in mind our git workflow) and halt the virtual machine with `vagrant halt`.
 
 ## General information about plugin
-The plugin resides in wordpress/wp-content/plugins/bergclub-plugin
+The theme resides in wordpress/wp-content/themes/bergclub-theme
 
 ## Wordpress installation
 1. The wordpress site is accessible through IP (192.168.33.11) or through the URL vccm-theme.dev 
 2. The username / password for the wp site is 'admin'/'admin'
 
-## Howto Test
-1. Tests are stored in the plugin directory
-2. With `vagrant ssh` you can ssh into your virtual machine. There you should change to the /vagrant directory (cd /vagrant) and run the command `phpunit`
