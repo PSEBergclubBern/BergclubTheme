@@ -15,7 +15,7 @@ cpus: 1
 #
 # Network Settings
 #
-hostname: vccm-theme.dev
+hostname: vccm-theme.local
 ip: 192.168.33.11
 
 #
