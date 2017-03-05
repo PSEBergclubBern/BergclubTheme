@@ -11,5 +11,5 @@ playbook.retry
 vendor
 *.swp
 
-/wordpress
-!/wordpress/wp-content/themes/bergclub-theme
+wordpress
+!wordpress/wp-content/themes/bergclub-theme
