@@ -1,0 +1,15 @@
+.DS_Store
+.ansible
+.bundle
+.envrc
+.github/
+.idea/
+.vagrant
+npm-debug.log
+package.box
+playbook.retry
+vendor
+*.swp
+
+/wordpress
+!/wordpress/wp-content/themes/bergclub-theme
