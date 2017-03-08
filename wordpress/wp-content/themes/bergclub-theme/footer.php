@@ -12,19 +12,13 @@
 
 	</div><!-- .site-content -->
 
-	<footer id="colophon" class="site-footer" role="contentinfo">
-		<div class="site-info">
-			<?php
-				/**
-				 * Fires before the Twenty Fifteen footer text for footer customization.
-				 *
-				 * @since Twenty Fifteen 1.0
-				 */
-				do_action( 'twentyfifteen_credits' );
-			?>
-			<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'twentyfifteen' ) ); ?>"><?php printf( __( 'Proudly powered by %s', 'twentyfifteen' ), 'WordPress' ); ?></a>
-		</div><!-- .site-info -->
-	</footer><!-- .site-footer -->
+    <nav class="navbar navbar-inverse navbar-fixed-bottom">
+        <div class="container">
+            <div class="navbar-footer">
+                <p class="text-muted"><span class="glyphicon glyphicon-copyright-mark" aria-hidden="true"></span> Bergclub Bern</p>
+            </div>
+        </div>
+    </nav>
 
 </div><!-- .site -->
 
