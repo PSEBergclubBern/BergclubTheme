@@ -41,13 +41,19 @@
                 </button>
                 <a class="navbar-brand" href="#">Bergclub Bern</a>
             </div>
-            <div id="navbar" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Startseite</a></li>
-                    <li><a href="#about">Über Uns</a></li>
-                    <li><a href="#contact">Kontakt</a></li>
-                </ul>
-            </div><!--/.nav-collapse -->
+                <?php /* Primary navigation */
+                wp_nav_menu( array(
+                        'menu' => 'header-navigation',
+                        'theme_location'    => 'header-navigation',
+                        'depth'             => 2,
+                        'container'         => 'div',
+                        'container_class'   => 'collapse navbar-collapse',
+                        'container_id'      => 'navbar',
+                        'menu_class'        => 'nav navbar-nav',
+                        //Process nav menu using our custom nav walker
+                        'walker' => new wp_bootstrap_navwalker())
+                );
+                ?>
         </div>
     </nav>
 

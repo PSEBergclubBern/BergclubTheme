@@ -84,6 +84,7 @@ function twentyfifteen_setup() {
 	register_nav_menus( array(
 		'primary' => __( 'Primary Menu',      'twentyfifteen' ),
 		'social'  => __( 'Social Links Menu', 'twentyfifteen' ),
+        'header-menu' => __('Header Navigation', 'header-navigation'),
 	) );
 
 	/*
@@ -405,3 +406,7 @@ require get_template_directory() . '/inc/template-tags.php';
  * @since Twenty Fifteen 1.0
  */
 require get_template_directory() . '/inc/customizer.php';
+
+
+// Register custom navigation walker
+require_once('wp_bootstrap_navwalker.php');
