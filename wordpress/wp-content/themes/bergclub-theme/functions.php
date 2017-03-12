@@ -542,18 +542,17 @@ function bcb_add_header_navigation() {
             'menu-item-url' => home_url( '/' ),
             'menu-item-status' => 'publish'));
 
-        wp_update_nav_menu_item($menu_id, 0, array(
+        $parentId = wp_update_nav_menu_item($menu_id, 0, array(
             'menu-item-object-id' => get_page_by_path('uber-uns')->ID,
             'menu-item-parent-id' => 0,
             'menu-item-position'  => 1,
             'menu-item-object' => 'page',
             'menu-item-type'      => 'post_type',
             'menu-item-status'    => 'publish'));
-
-        $parentPage = get_page_by_path('uber-uns');
+        
         wp_update_nav_menu_item($menu_id, 0, array(
             'menu-item-object-id' => get_page_by_path('portrait')->ID,
-            'menu-item-parent-id' => $parentPage->ID,
+            'menu-item-parent-id' => $parentId,
             'menu-item-position'  => 2,
             'menu-item-object' => 'page',
             'menu-item-type'      => 'post_type',
@@ -561,7 +560,7 @@ function bcb_add_header_navigation() {
 
         wp_update_nav_menu_item($menu_id, 0, array(
             'menu-item-object-id' => get_page_by_path('vorstand')->ID,
-            'menu-item-parent-id' => $parentPage->ID,
+            'menu-item-parent-id' => $parentId,
             'menu-item-position'  => 3,
             'menu-item-object' => 'page',
             'menu-item-type'      => 'post_type',
@@ -569,7 +568,7 @@ function bcb_add_header_navigation() {
 
         wp_update_nav_menu_item($menu_id, 0, array(
             'menu-item-object-id' => get_page_by_path('statuten')->ID,
-            'menu-item-parent-id' => $parentPage->ID,
+            'menu-item-parent-id' => $parentId,
             'menu-item-position'  => 4,
             'menu-item-object' => 'page',
             'menu-item-type'      => 'post_type',
