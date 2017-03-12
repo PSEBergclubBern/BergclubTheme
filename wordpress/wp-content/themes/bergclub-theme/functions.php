@@ -531,81 +531,60 @@ function bcb_add_header_navigation() {
     $menu_name = 'Header Navigation';
     $menu_exists = wp_get_nav_menu_object( $menu_name );
 
-// If it doesn't exist, let's create it.
+    /*
+     * Deletes the main menu, used during menu development.
+     * Comment out, when finished.
+     */
+    /*
+    if($menu_exists){
+        wp_delete_nav_menu( $menu_name );
+        $menu_exists = false;
+    }
+    */
+
+    // If it doesn't exist, let's create it.
     if( !$menu_exists){
         $menu_id = wp_create_nav_menu($menu_name);
 
         // Set up default menu items
         wp_update_nav_menu_item($menu_id, 0, array(
             'menu-item-title' =>  __('Home'),
+            'menu-item-position' => 0,
             'menu-item-classes' => 'home',
             'menu-item-url' => home_url( '/' ),
             'menu-item-status' => 'publish'));
 
         $parentId = wp_update_nav_menu_item($menu_id, 0, array(
-            'menu-item-object-id' => get_page_by_path('uber-uns')->ID,
-            'menu-item-parent-id' => 0,
-            'menu-item-position'  => 1,
-            'menu-item-object' => 'page',
-            'menu-item-type'      => 'post_type',
-            'menu-item-status'    => 'publish'));
+            'menu-item-title' =>  __('Über uns'),
+            'menu-item-position' => 1,
+            'menu-item-classes' => 'ueber-uns',
+            'menu-item-status' => 'publish'));
         
-        wp_update_nav_menu_item($menu_id, 0, array(
-            'menu-item-object-id' => get_page_by_path('portrait')->ID,
-            'menu-item-parent-id' => $parentId,
-            'menu-item-position'  => 2,
-            'menu-item-object' => 'page',
-            'menu-item-type'      => 'post_type',
-            'menu-item-status'    => 'publish'));
+        wp_update_nav_menu_item($menu_id, 0, bcb_get_nav_menu_item('portrait', 2, $parentId));
 
-        wp_update_nav_menu_item($menu_id, 0, array(
-            'menu-item-object-id' => get_page_by_path('vorstand')->ID,
-            'menu-item-parent-id' => $parentId,
-            'menu-item-position'  => 3,
-            'menu-item-object' => 'page',
-            'menu-item-type'      => 'post_type',
-            'menu-item-status'    => 'publish'));
+        wp_update_nav_menu_item($menu_id, 0, bcb_get_nav_menu_item('vorstand', 3, $parentId));
 
-        wp_update_nav_menu_item($menu_id, 0, array(
-            'menu-item-object-id' => get_page_by_path('statuten')->ID,
-            'menu-item-parent-id' => $parentId,
-            'menu-item-position'  => 4,
-            'menu-item-object' => 'page',
-            'menu-item-type'      => 'post_type',
-            'menu-item-status'    => 'publish'));
+        wp_update_nav_menu_item($menu_id, 0, bcb_get_nav_menu_item('statuten', 4, $parentId));
 
-        wp_update_nav_menu_item($menu_id, 0, array(
-            'menu-item-object-id' => get_page_by_path('touren')->ID,
-            'menu-item-parent-id' => 0,
-            'menu-item-position'  => 5,
-            'menu-item-object' => 'page',
-            'menu-item-type'      => 'post_type',
-            'menu-item-status'    => 'publish'));
+        wp_update_nav_menu_item($menu_id, 0, bcb_get_nav_menu_item('touren', 5));
 
-        wp_update_nav_menu_item($menu_id, 0, array(
-            'menu-item-object-id' => get_page_by_path('mitteilungen')->ID,
-            'menu-item-parent-id' => 0,
-            'menu-item-position'  => 6,
-            'menu-item-object' => 'page',
-            'menu-item-type'      => 'post_type',
-            'menu-item-status'    => 'publish'));
+        wp_update_nav_menu_item($menu_id, 0, bcb_get_nav_menu_item('mitteilungen', 6));
 
-        wp_update_nav_menu_item($menu_id, 0, array(
-            'menu-item-object-id' => get_page_by_path('service')->ID,
-            'menu-item-parent-id' => 0,
-            'menu-item-position'  => 7,
-            'menu-item-object' => 'page',
-            'menu-item-type'      => 'post_type',
-            'menu-item-status'    => 'publish'));
+        wp_update_nav_menu_item($menu_id, 0, bcb_get_nav_menu_item('service', 7));
 
-        wp_update_nav_menu_item($menu_id, 0, array(
-            'menu-item-object-id' => get_page_by_path('login')->ID,
-            'menu-item-parent-id' => 0,
-            'menu-item-position'  => 8,
-            'menu-item-object' => 'page',
-            'menu-item-type'      => 'post_type',
-            'menu-item-status'    => 'publish'));
+        wp_update_nav_menu_item($menu_id, 0, bcb_get_nav_menu_item('login', 8));
     }
+}
+
+function bcb_get_nav_menu_item($path, $position, $parentId = 0){
+    return array(
+        'menu-item-object-id' => get_page_by_path($path)->ID,
+        'menu-item-parent-id' => $parentId,
+        'menu-item-position'  => $position,
+        'menu-item-object' => 'page',
+        'menu-item-type'      => 'post_type',
+        'menu-item-status'    => 'publish'
+    );
 }
 
 add_filter( 'init', 'bcb_add_header_navigation' );
