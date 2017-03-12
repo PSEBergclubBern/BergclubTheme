@@ -7,34 +7,37 @@
  */
 get_header() ?>
 
-<div id="myCarousel" class="carousel slide header-carousel" data-ride="carousel">
-    <ol class="carousel-indicators">
-        <li data-target="#headerCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#headerCarousel" data-slide-to="1"></li>
-
-    </ol>
-
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner" role="listbox">
-        <div class="item active">
-            <img class="header-img" src="<?php echo esc_url( get_template_directory_uri() ); ?>/berg1.jpg" alt="Berg Landschaft">
-        </div>
-
-        <div class="item">
-            <img class="header-img" src="<?php echo esc_url( get_template_directory_uri() ); ?>/berg2.jpg" alt="Berg Landschaft">
-        </div>
-    </div>
-</div>
-
-<img class="header-logo" src="<?php echo esc_url( get_template_directory_uri() ); ?>/BergclubBernLogo.png" alt="Logo">
-
 <div class="container">
+    <div class="page-content">
+        <!-- Start the Loop. -->
+        <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+            <div class="post">
 
-    <div class="starter-template">
-        <h1>Bootstrap starter template</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-    </div>
+                <!-- Display the Title as a link to the Post's permalink. -->
 
+                <h2><?php the_title(); ?></h2>
+
+
+                <!-- Display the date (November 16th, 2009 format) and a link to other posts by this posts author. -->
+
+                <!-- <small>--><?php //the_time('F jS, Y'); ?><!-- by --><?php //the_author_posts_link(); ?><!--</small>-->
+
+
+                <!-- Display the Post's content in a div box. -->
+
+                <div class="post-content">
+                    <?php the_content(); ?>
+                </div>
+
+
+                <!-- Display a comma separated list of the Post's Categories. -->
+
+                <p class="postmetadata"><?php _e( 'Posted in' ); ?> <?php the_category( ', ' ); ?></p>
+            </div> <!-- closes the first div box -->
+        <?php endwhile; endif; ?>
+
+
+    </div><!-- /.page-content -->
 </div><!-- /.container -->
 
 <?php get_footer() ?>
