@@ -13,13 +13,9 @@
 		// Post thumbnail.
 		twentyfifteen_post_thumbnail();
 	?>
-
-	<header class="entry-header">
+    <div class="container">
 		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-	</header><!-- .entry-header -->
-
-	<div class="entry-content">
-		<?php the_content(); ?>
+        <?php the_content('<p>', '</p>'); ?>
 		<?php
 			wp_link_pages( array(
 				'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'twentyfifteen' ) . '</span>',
@@ -31,7 +27,5 @@
 			) );
 		?>
 	</div><!-- .entry-content -->
-
-	<?php edit_post_link( __( 'Edit', 'twentyfifteen' ), '<footer class="entry-footer"><span class="edit-link">', '</span></footer><!-- .entry-footer -->' ); ?>
 
 </article><!-- #post-## -->
