@@ -84,6 +84,7 @@ function twentyfifteen_setup() {
 	register_nav_menus( array(
 		'primary' => __( 'Primary Menu',      'twentyfifteen' ),
 		'social'  => __( 'Social Links Menu', 'twentyfifteen' ),
+        'header-menu' => __('Header Navigation', 'header-navigation'),
 	) );
 
 	/*
@@ -405,3 +406,185 @@ require get_template_directory() . '/inc/template-tags.php';
  * @since Twenty Fifteen 1.0
  */
 require get_template_directory() . '/inc/customizer.php';
+
+
+// Register custom navigation walker
+require_once('wp_bootstrap_navwalker.php');
+
+function bcb_add_pages(){
+    $page = get_page_by_path('uber-uns');
+    if (!$page) {
+        $uber_uns_page_title = 'Über uns';
+        $uber_uns_page_content = 'Text über uns';
+        $uber_uns_page = array(
+            'post_type' => 'page',
+            'post_title' => $uber_uns_page_title,
+            'post_content' => $uber_uns_page_content,
+            'post_status' => 'publish',
+            'post_slug' => 'uber-uns'
+        );
+        wp_insert_post($uber_uns_page);
+    }
+
+    $page = get_page_by_path('portrait');
+    if (!$page) {
+        $portrait_page_title = 'Portrait';
+        $portrait_page_content = 'Wieder irgendwelcher Text über den Bergclub';
+        $portrait_page = array(
+            'post_type' => 'page',
+            'post_title' => $portrait_page_title,
+            'post_content' => $portrait_page_content,
+            'post_status' => 'publish',
+            'post_slug' => 'portrait'
+        );
+        wp_insert_post($portrait_page);
+    }
+
+    $page = get_page_by_path('vorstand');
+    if (!$page) {
+        $vorstand_page_title = 'Vorstand';
+        $vorstand_page_content = 'Hier kommen alle Vorstandsmitglieder';
+        $vorstand_page = array(
+            'post_type' => 'page',
+            'post_title' => $vorstand_page_title,
+            'post_content' => $vorstand_page_content,
+            'post_status' => 'publish',
+            'post_slug' => 'vorstand'
+        );
+        wp_insert_post($vorstand_page);
+    }
+
+    $page = get_page_by_path('statuten');
+    if (!$page) {
+        $statuten_page_title = 'Statuten';
+        $statuten_page_content = 'Dokumente';
+        $statuten_page = array(
+            'post_type' => 'page',
+            'post_title' => $statuten_page_title,
+            'post_content' => $statuten_page_content,
+            'post_status' => 'publish',
+            'post_slug' => 'statuten'
+        );
+        wp_insert_post($statuten_page);
+    }
+
+    $page = get_page_by_path('touren');
+    if (!$page) {
+        $touren_page_title = 'Touren';
+        $touren_page_content = 'Tourenberichte';
+        $touren_page = array(
+            'post_type' => 'page',
+            'post_title' => $touren_page_title,
+            'post_content' => $touren_page_content,
+            'post_status' => 'publish',
+            'post_slug' => 'touren'
+        );
+        wp_insert_post($touren_page);
+    }
+
+    $page = get_page_by_path('mitteilungen');
+    if (!$page) {
+        $mitteilungen_page_title = 'Mitteilungen';
+        $mitteilungen_page_content = 'Mitteilungen';
+        $mitteilungen_page = array(
+            'post_type' => 'page',
+            'post_title' => $mitteilungen_page_title,
+            'post_content' => $mitteilungen_page_content,
+            'post_status' => 'publish',
+            'post_slug' => 'mitteilungen'
+        );
+        wp_insert_post($mitteilungen_page);
+    }
+
+    $page = get_page_by_path('service');
+    if (!$page) {
+        $service_page_title = 'Service';
+        $service_page_content = 'Have you tried turn it off and on again?';
+        $service_page = array(
+            'post_type' => 'page',
+            'post_title' => $service_page_title,
+            'post_content' => $service_page_content,
+            'post_status' => 'publish',
+            'post_slug' => 'service'
+        );
+        wp_insert_post($service_page);
+    }
+
+    $page = get_page_by_path('login');
+    if (!$page) {
+        $login_page_title = 'Login';
+        $login_page_content = 'Log yourself in';
+        $login_page = array(
+            'post_type' => 'page',
+            'post_title' => $login_page_title,
+            'post_content' => $login_page_content,
+            'post_status' => 'publish',
+            'post_slug' => 'login'
+        );
+        wp_insert_post($login_page);
+    }
+}
+add_filter( 'init', 'bcb_add_pages' );
+
+function bcb_add_header_navigation() {
+    // Check if the menu exists
+    $menu_name = 'Header Navigation';
+    $menu_exists = wp_get_nav_menu_object( $menu_name );
+
+    /*
+     * Deletes the main menu, used during menu development.
+     * Comment out, when finished.
+     */
+    /*
+    if($menu_exists){
+        wp_delete_nav_menu( $menu_name );
+        $menu_exists = false;
+    }
+    */
+
+    // If it doesn't exist, let's create it.
+    if( !$menu_exists){
+        $menu_id = wp_create_nav_menu($menu_name);
+
+        // Set up default menu items
+        wp_update_nav_menu_item($menu_id, 0, array(
+            'menu-item-title' =>  __('Home'),
+            'menu-item-position' => 0,
+            'menu-item-classes' => 'home',
+            'menu-item-url' => home_url( '/' ),
+            'menu-item-status' => 'publish'));
+
+        $parentId = wp_update_nav_menu_item($menu_id, 0, array(
+            'menu-item-title' =>  __('Über uns'),
+            'menu-item-position' => 1,
+            'menu-item-classes' => 'ueber-uns',
+            'menu-item-status' => 'publish'));
+        
+        wp_update_nav_menu_item($menu_id, 0, bcb_get_nav_menu_item('portrait', 2, $parentId));
+
+        wp_update_nav_menu_item($menu_id, 0, bcb_get_nav_menu_item('vorstand', 3, $parentId));
+
+        wp_update_nav_menu_item($menu_id, 0, bcb_get_nav_menu_item('statuten', 4, $parentId));
+
+        wp_update_nav_menu_item($menu_id, 0, bcb_get_nav_menu_item('touren', 5));
+
+        wp_update_nav_menu_item($menu_id, 0, bcb_get_nav_menu_item('mitteilungen', 6));
+
+        wp_update_nav_menu_item($menu_id, 0, bcb_get_nav_menu_item('service', 7));
+
+        wp_update_nav_menu_item($menu_id, 0, bcb_get_nav_menu_item('login', 8));
+    }
+}
+
+function bcb_get_nav_menu_item($path, $position, $parentId = 0){
+    return array(
+        'menu-item-object-id' => get_page_by_path($path)->ID,
+        'menu-item-parent-id' => $parentId,
+        'menu-item-position'  => $position,
+        'menu-item-object' => 'page',
+        'menu-item-type'      => 'post_type',
+        'menu-item-status'    => 'publish'
+    );
+}
+
+add_filter( 'init', 'bcb_add_header_navigation' );
